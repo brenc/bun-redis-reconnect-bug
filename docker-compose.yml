@@ -1,0 +1,50 @@
+services:
+  redis-test:
+    build:
+      target: redis_test
+    cap_drop:
+      - ALL
+    cap_add:
+      - CAP_NET_RAW
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+    environment:
+      - NODE_ENV=development
+    init: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 1024
+    volumes:
+      - type: bind
+        source: ${PWD}
+        target: /app
+  
+  valkey:
+    cap_drop:
+      - ALL
+    cap_add:
+      - CAP_SETGID
+      - CAP_SETUID
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+    image: valkey/valkey:8
+    # image: redis:8
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
