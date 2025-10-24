@@ -22,6 +22,8 @@ You should see:
 2025-10-24T00:22:39.653Z: Redis connected: false
 ```
 
+**Note also that client.onclose is never called on the disconnect!**
+
 After a short while, restart the Redis server container:
 ```bash
 docker compose start test-redis-server
