@@ -48,8 +48,8 @@ class RedisClientWrapper {
 
     const client = new RedisClient(this.url, this.redisClientOptions);
 
-    client.onclose = () => {
-      console.error('Redis connection closed');
+    client.onclose = (err) => {
+      console.error('Redis connection closed: %O', err);
 
       if (this.customReconnect) {
         this.scheduleReconnect();
@@ -57,7 +57,7 @@ class RedisClientWrapper {
     };
 
     client.onconnect = () => {
-      console.log('Connected to Redis');
+      console.log('Connected to Redis server at', this.url);
 
       this.isReconnecting = false;
 
@@ -112,13 +112,6 @@ class RedisClientWrapper {
 
     try {
       console.log(`Attempting to reconnect to server at ${this.url}`);
-
-      // Close the old client and create a new one
-      try {
-        this.client.close();
-      } catch {
-        // Ignore errors when closing dead connection
-      }
 
       this.client = this.createClient();
 

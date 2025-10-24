@@ -51,3 +51,12 @@ XXX BEFORE CONNECT XXX
 ```
 
 No exception is raised on the connect attempt. It never seems to complete at all.
+
+When trying to connect to a down Redis server, the client reports:
+
+```
+Redis connection closed: error: FailedToOpenSocket reconnecting
+code: "ERR_SOCKET_CLOSED_BEFORE_CONNECTION"
+```
+
+Which I would expect, however, it never attempts to reconnect.
