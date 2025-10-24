@@ -94,9 +94,7 @@ class RedisClientWrapper {
       return;
     }
 
-    console.log(
-      `Scheduling reconnection to Valkey server at ${this.url} in 1 second`,
-    );
+    console.log(`Scheduling reconnection to server at ${this.url} in 1 second`);
 
     this.isReconnecting = true;
     this.reconnectTimer = setTimeout(() => {
@@ -113,7 +111,7 @@ class RedisClientWrapper {
     }
 
     try {
-      console.log(`Attempting to reconnect to Valkey server at ${this.url}`);
+      console.log(`Attempting to reconnect to server at ${this.url}`);
 
       // Close the old client and create a new one
       try {
