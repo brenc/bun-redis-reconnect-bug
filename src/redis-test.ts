@@ -49,7 +49,7 @@ class RedisClientWrapper {
     const client = new RedisClient(this.url, this.redisClientOptions);
 
     client.onclose = (err) => {
-      console.error('Redis connection closed: %O', err);
+      console.error('onclose(): Redis connection closed: %O', err);
 
       if (this.customReconnect) {
         this.scheduleReconnect();
@@ -57,7 +57,7 @@ class RedisClientWrapper {
     };
 
     client.onconnect = () => {
-      console.log('Connected to Redis server at', this.url);
+      console.log('onconnect(): Connected to Redis server at', this.url);
 
       this.isReconnecting = false;
 
